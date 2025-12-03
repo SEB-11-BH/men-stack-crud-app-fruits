@@ -41,6 +41,10 @@ app.get('/',(req,res)=>{
 })
 
 
+// CREATE
+app.get('/fruits/new',(req,res)=>{
+    res.render('fruits/new.ejs')
+})
 
 
 
