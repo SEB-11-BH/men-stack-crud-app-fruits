@@ -7,6 +7,7 @@ const Fruit = require('./models/fruit')
 
 app.use(express.static('public')); //all static files are in the public folder
 
+app.use(express.urlencoded({ extended: false }));
 
 
 
@@ -44,6 +45,11 @@ app.get('/',(req,res)=>{
 // CREATE
 app.get('/fruits/new',(req,res)=>{
     res.render('fruits/new.ejs')
+})
+
+app.post('/fruits',(req,res)=>{
+    console.log(req.body)
+    res.redirect('/')
 })
 
 
