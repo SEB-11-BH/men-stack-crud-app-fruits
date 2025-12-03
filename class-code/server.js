@@ -55,10 +55,10 @@ app.post('/fruits', async (req,res)=>{
         req.body.isReadyToEat = false
     }
     console.log(req.body)
-    await Fruit.create(req.body)
+    const createdFruit = await Fruit.create(req.body)
 
 
-    res.redirect('/')
+    res.redirect('/fruits/' + createdFruit._id )
 })
 
 
@@ -67,6 +67,20 @@ app.post('/fruits', async (req,res)=>{
 app.get('/fruits', async (req,res)=>{
     const allFruits = await Fruit.find()
     res.render('fruits/index.ejs',{allFruits})
+})
+
+
+app.get('/fruits/:id',async(req,res)=>{
+    console.log(req.params.id)
+    const {id} = req.params
+    const foundFruit = await Fruit.findById(id)
+    res.render('fruits/show.ejs',{foundFruit})
+})
+
+app.post('/fruits/:id/delete',async(req,res)=>{
+    await Fruit.findByIdAndDelete(req.params.id)
+    res.redirect('/fruits')
+
 })
 
 
