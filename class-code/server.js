@@ -47,15 +47,17 @@ app.get('/fruits/new',(req,res)=>{
     res.render('fruits/new.ejs')
 })
 
-app.post('/fruits',(req,res)=>{
-    console.log(req.body)
+app.post('/fruits', async (req,res)=>{
     if(req.body.isReadyToEat){
         req.body.isReadyToEat = true
     }
     else{
         req.body.isReadyToEat = false
     }
-    
+    console.log(req.body)
+    await Fruit.create(req.body)
+
+
     res.redirect('/')
 })
 
