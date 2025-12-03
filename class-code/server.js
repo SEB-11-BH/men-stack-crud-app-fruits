@@ -49,6 +49,13 @@ app.get('/fruits/new',(req,res)=>{
 
 app.post('/fruits',(req,res)=>{
     console.log(req.body)
+    if(req.body.isReadyToEat){
+        req.body.isReadyToEat = true
+    }
+    else{
+        req.body.isReadyToEat = false
+    }
+    
     res.redirect('/')
 })
 
