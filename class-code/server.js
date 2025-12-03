@@ -63,6 +63,13 @@ app.post('/fruits', async (req,res)=>{
 
 
 
+// READ: all fruits
+app.get('/fruits', async (req,res)=>{
+    const allFruits = await Fruit.find()
+    res.render('fruits/index.ejs',{allFruits})
+})
+
+
 
 app.listen(3000,()=>{
     console.log('App is running on port 3000')
