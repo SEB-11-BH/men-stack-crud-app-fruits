@@ -11,7 +11,7 @@ app.use(express.static('public')); //all static files are in the public folder
 
 app.use(express.urlencoded({ extended: false }));
 
-app.use(methodOverride('_safa'))
+app.use(methodOverride('_safa')) 
 
 app.use(morgan('dev'))
 
@@ -93,6 +93,13 @@ app.get('/fruits/:id/edit',async(req,res)=>{
     res.render('fruits/edit.ejs',{fruit: foundFruit})
 })
 
+
+app.put('/fruits/:id',async(req,res)=>{
+    req.body.isReadyToEat = Boolean(req.body.isReadyToEat) // converts is ready to eat to a boolean
+
+    const updatedFruit = await Fruit.findByIdAndUpdate(req.params.id, req.body)
+
+})
 
 
 app.listen(3000,()=>{

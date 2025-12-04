@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Edit <%= fruit.name %></h1>
-    <form action="">
+    <form action="/fruits/<%= fruit._id %>?_safa=PUT" method="POST">
         <label for="name">Name: </label>
         <input name="name" id="name" type="text" value="<%= fruit.name %>">
         
