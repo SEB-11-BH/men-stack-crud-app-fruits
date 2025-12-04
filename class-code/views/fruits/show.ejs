@@ -9,9 +9,19 @@
     <h1>Fruit Details</h1>
     <p><%= foundFruit.name %></p>
 
-    <form action="/fruits/<%= foundFruit._id %>/delete" method="post">
+    <% if (foundFruit.isReadyToEat) { %>
+        <p>Fruit is ready to eat!</p>
+    <% } else { %>
+        <p>Not ready to eat :(</p>
+    <% } %>
+
+    
+
+    <a href="/fruits/<%= foundFruit._id %>/edit">Edit Fruit</a>
+    <form action="/fruits/<%= foundFruit._id %>?_safa=DELETE" method="post">
         <button type="submit">Delete Fruit</button>
     </form>
+
 
 
 

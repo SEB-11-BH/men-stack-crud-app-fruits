@@ -4,11 +4,16 @@ const app = express() // creates a express application
 require("dotenv").config() // allows us to use the .env variables
 const mongoose = require("mongoose") // importing mongoose
 const Fruit = require('./models/fruit')
+const methodOverride = require('method-override')
+const morgan = require('morgan')
 
 app.use(express.static('public')); //all static files are in the public folder
 
 app.use(express.urlencoded({ extended: false }));
 
+app.use(methodOverride('_safa'))
+
+app.use(morgan('dev'))
 
 
 
@@ -58,7 +63,7 @@ app.post('/fruits', async (req,res)=>{
     const createdFruit = await Fruit.create(req.body)
 
 
-    res.redirect('/fruits/' + createdFruit._id )
+    res.redirect('/fruits/' + createdFruit._id)
 })
 
 
@@ -77,10 +82,15 @@ app.get('/fruits/:id',async(req,res)=>{
     res.render('fruits/show.ejs',{foundFruit})
 })
 
-app.post('/fruits/:id/delete',async(req,res)=>{
+app.delete('/fruits/:id',async(req,res)=>{
     await Fruit.findByIdAndDelete(req.params.id)
     res.redirect('/fruits')
 
+})
+
+app.get('/fruits/:id/edit',async(req,res)=>{
+    const foundFruit = await Fruit.findById(req.params.id)
+    res.render('fruits/edit.ejs',{fruit: foundFruit})
 })
 
 
