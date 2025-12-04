@@ -6,10 +6,14 @@
     <title>Edit Fruit</title>
 </head>
 <body>
+    <h1>Edit <%= fruit.name %></h1>
     <form action="">
         <label for="name">Name: </label>
-        <input  id="name" type="text">
+        <input name="name" id="name" type="text" value="<%= fruit.name %>">
         
+        <label for="isReadyToEat" >Is Ready to Eat?</label>
+        <input <% if(fruit.isReadyToEat){ %> checked <% } %> name="isReadyToEat" id="isReadyToEat" type="checkbox">
+
         <button type="submit">Update Fruit</button>
     </form>
 </body>
