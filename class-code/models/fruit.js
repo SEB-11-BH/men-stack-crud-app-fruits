@@ -2,7 +2,9 @@ const mongoose = require('mongoose')
 
 // Schema
 const fruitSchema = new mongoose.Schema({
-    name: String,
+    name: {
+        type: String,
+    },
     isReadyToEat: Boolean
 })
 

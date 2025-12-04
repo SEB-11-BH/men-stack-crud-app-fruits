@@ -79,35 +79,66 @@ app.post('/fruits', async (req,res)=>{
 
 // READ: all fruits
 app.get('/fruits', async (req,res)=>{
-    const allFruits = await Fruit.find()
-    res.render('fruits/index.ejs',{allFruits})
+    try{
+        const allFruits = await Fruit.find()
+        res.render('fruits/index.ejs',{allFruits})
+
+    }
+    catch(err){
+        console.log(err)
+    }
 })
 
 
 app.get('/fruits/:id',async(req,res)=>{
-    console.log(req.params.id)
-    const {id} = req.params
-    const foundFruit = await Fruit.findById(id)
-    res.render('fruits/show.ejs',{foundFruit})
+    try{
+        console.log(req.params.id)
+        const {id} = req.params
+        const foundFruit = await Fruit.findById(id)
+        res.render('fruits/show.ejs',{foundFruit})
+
+    }
+    catch(err){
+        console.log(err)
+    }
 })
 
 app.delete('/fruits/:id',async(req,res)=>{
-    await Fruit.findByIdAndDelete(req.params.id)
-    res.redirect('/fruits')
+    try{
+        await Fruit.findByIdAndDelete(req.params.id)
+        res.redirect('/fruits')
+
+    }
+    catch(err){
+        console.log(err)
+    }
 
 })
 
 app.get('/fruits/:id/edit',async(req,res)=>{
-    const foundFruit = await Fruit.findById(req.params.id)
-    res.render('fruits/edit.ejs',{fruit: foundFruit})
+    try{
+        const foundFruit = await Fruit.findById(req.params.id)
+        res.render('fruits/edit.ejs',{fruit: foundFruit})
+
+    }
+    catch(err){
+        console.log(err)
+    }
 })
 
 
 app.put('/fruits/:id',async(req,res)=>{
-    req.body.isReadyToEat = Boolean(req.body.isReadyToEat) // converts is ready to eat to a boolean
-    const updatedFruit = await Fruit.findByIdAndUpdate(req.params.id, req.body)
+    try{
+        req.body.isReadyToEat = Boolean(req.body.isReadyToEat) // converts is ready to eat to a boolean
+        const updatedFruit = await Fruit.findByIdAndUpdate(req.params.id, req.body)
+        res.redirect('/fruits/' + updatedFruit._id)
 
-    res.redirect('/fruits/' + updatedFruit._id)
+
+    }
+    catch(err){
+        console.log(err)
+    }
+
 
 })
 
