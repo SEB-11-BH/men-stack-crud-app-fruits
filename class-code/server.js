@@ -53,7 +53,9 @@ app.get('/fruits/new',(req,res)=>{
 })
 
 app.post('/fruits', async (req,res)=>{
-    if(req.body.isReadyToEat){
+
+    try{
+            if(req.body.isReadyToEat){
         req.body.isReadyToEat = true
     }
     else{
@@ -64,6 +66,13 @@ app.post('/fruits', async (req,res)=>{
 
 
     res.redirect('/fruits/' + createdFruit._id)
+
+
+    }
+    catch(err){
+        console.log(err)
+    }
+
 })
 
 
@@ -96,8 +105,9 @@ app.get('/fruits/:id/edit',async(req,res)=>{
 
 app.put('/fruits/:id',async(req,res)=>{
     req.body.isReadyToEat = Boolean(req.body.isReadyToEat) // converts is ready to eat to a boolean
-
     const updatedFruit = await Fruit.findByIdAndUpdate(req.params.id, req.body)
+
+    res.redirect('/fruits/' + updatedFruit._id)
 
 })
 
